@@ -1,5 +1,22 @@
 import * as THREE from 'three';
 
+/**
+ * After editing field.frag / field.vert, bump this before deploy so CDN/browsers
+ * fetch the new files. On localhost, a fresh timestamp is used every load.
+ */
+const SHADER_REVISION = '1';
+
+function shaderUrl(filename) {
+    const host = typeof location !== 'undefined' ? location.hostname : '';
+    const isLocal =
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        host === '0.0.0.0' ||
+        host.endsWith('.local');
+    const q = isLocal ? `t=${Date.now()}` : `v=${SHADER_REVISION}`;
+    return `${filename}?${q}`;
+}
+
 let scene;
 let renderer;
 let material;
@@ -12,11 +29,11 @@ init();
 
 function init() {
     const loader = new THREE.FileLoader();
-    loader.load('field.frag', (data) => {
+    loader.load(shaderUrl('field.frag'), (data) => {
         sfrag = data;
         runMoreIfDone();
     }, undefined, onShaderError);
-    loader.load('field.vert', (data) => {
+    loader.load(shaderUrl('field.vert'), (data) => {
         svert = data;
         runMoreIfDone();
     }, undefined, onShaderError);
