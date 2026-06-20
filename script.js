@@ -14,7 +14,8 @@ function shaderUrl(filename) {
         host === '0.0.0.0' ||
         host.endsWith('.local');
     const q = isLocal ? `t=${Date.now()}` : `v=${SHADER_REVISION}`;
-    return `${filename}?${q}`;
+    const base = document.body?.dataset?.shaderBase ?? './';
+    return `${base}${filename}?${q}`;
 }
 
 let scene;

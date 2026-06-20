@@ -8,26 +8,11 @@
 	<meta name="theme-color" content="#080b12">
 	<style>
 		:root {
-			color-scheme: light dark;
-			--bg: #f5f5f7;
-			--text: #1d1d1f;
-			--muted: #6e6e73;
-			--glass: rgba(255, 255, 255, 0.72);
-			--stroke: rgba(0, 0, 0, 0.08);
-			--shadow: rgba(0, 0, 0, 0.08);
-			--accent: #0071e3;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			:root {
-				--bg: #080b12;
-				--text: #ecf6ff;
-				--muted: #bed5ef;
-				--glass: rgba(6, 9, 17, 0.64);
-				--stroke: rgba(255, 255, 255, 0.2);
-				--shadow: rgba(0, 0, 0, 0.32);
-				--accent: #64b5ff;
-			}
+			color-scheme: dark;
+			--text: #ecf6ff;
+			--muted: #bed5ef;
+			--glass: rgba(6, 9, 17, 0.64);
+			--stroke: rgba(255, 255, 255, 0.2);
 		}
 
 		* {
@@ -42,15 +27,26 @@
 		}
 
 		body {
+			position: relative;
+			overflow-x: hidden;
 			font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-			background: var(--bg);
+			background: #080b12;
 			color: var(--text);
 			line-height: 1.6;
-			-webkit-font-smoothing: antialiased;
-			text-rendering: optimizeLegibility;
+		}
+
+		.webgl-canvas {
+			position: fixed;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+			z-index: 0;
 		}
 
 		.page-content {
+			position: relative;
+			z-index: 2;
 			min-height: 100vh;
 			padding: clamp(20px, 4vw, 44px);
 			display: grid;
@@ -64,8 +60,7 @@
 			border-radius: 28px;
 			background: var(--glass);
 			backdrop-filter: blur(12px);
-			-webkit-backdrop-filter: blur(12px);
-			box-shadow: 0 24px 80px var(--shadow);
+			box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
 		}
 
 		h1,
@@ -119,12 +114,7 @@
 		}
 
 		a {
-			color: var(--accent);
-			text-decoration: none;
-		}
-
-		a:hover {
-			text-decoration: underline;
+			color: var(--text);
 		}
 
 		@media (max-width: 560px) {
@@ -134,14 +124,14 @@
 		}
 	</style>
 </head>
-<body>
+<body data-shader-base="../">
 	<main class="page-content">
 		<article class="policy">
 			<h1>MUT8 Pixel Cam</h1>
 			<p class="lead">Privacy Policy and Terms of Use</p>
 			<p class="meta">Developer: Demian Nezhdanov</p>
-			<p class="meta">Contact: <a href="mailto:nzhddemian@gmail.com">nzhddemian@gmail.com</a></p>
-			<p class="meta">Effective date: [Effective Date]</p>
+			<p class="meta">Contact: nzhddemian@gmail.com</p>
+			<p class="meta">Effective date: June 20, 2026</p>
 
 			<section aria-labelledby="privacy-policy">
 				<h2 id="privacy-policy">Privacy Policy</h2>
@@ -202,10 +192,19 @@
 				<p>Some jurisdictions do not allow certain limitations of liability, so some of the above may not apply to you.</p>
 
 				<h3 id="contact">Contact</h3>
-				<p>For privacy questions, support, or questions about these terms, contact Demian Nezhdanov at <a href="mailto:nzhddemian@gmail.com">nzhddemian@gmail.com</a>.</p>
+				<p>For privacy questions, support, or questions about these terms, contact Demian Nezhdanov at nzhddemian@gmail.com.</p>
 				<p>We may update this page from time to time. The effective date at the top reflects the most recent revision. Continued use of the app after changes means you accept the updated terms.</p>
 			</section>
 		</article>
 	</main>
+
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+			}
+		}
+	</script>
+	<script type="module" src="../script.js"></script>
 </body>
 </html>
